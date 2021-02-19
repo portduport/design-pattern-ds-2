@@ -20,8 +20,13 @@ public class RequeteHttp implements ComposantRequeteHttp {
         children.remove(composant);
     }
 
-    public ComposantRequeteHttp getComposant(int id) {
-        return (ComposantRequeteHttp) children.get(id);
+    public String getComposant() {
+        for (ComposantRequeteHttp c : children) {
+            if (c instanceof Url) {
+                return c.afficher();
+            }
+        }
+        return null;
     }
 
     @Override

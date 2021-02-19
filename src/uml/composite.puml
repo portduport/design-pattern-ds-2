@@ -6,7 +6,7 @@ class RequeteHttp{
     - children : ComposantRequeteHttp
     + add(ComposantRequeteHttp)
     + remove(ComposantRequeteHttp)
-    + getComposant(int) : ComposantRequeteHttp
+    + getComposant() : String
     + afficher() : String
 }
 class Url{

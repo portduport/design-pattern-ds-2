@@ -7,7 +7,7 @@ public class ServeurWebProxy implements IServeurWeb {
     public int repondre(RequeteHttp requete) {
         if (sw == null)
             sw = new ServeurWeb();
-        if (requete.getComposant(0).afficher() == "/evilurl") {
+        if (requete.getComposant() == "/evilurl") {
             return 403;
         }
         return sw.repondre(requete);
