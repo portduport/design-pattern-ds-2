@@ -2,9 +2,15 @@
 interface IServeurWeb {
      + repondre() :void   
 }
+class Client
 class ServeurWeb
 class ServeurWebProxy{
     - sw : ServeurWeb
 }
+
+ServeurWebProxy ..> IServeurWeb
+ServeurWeb ..> IServeurWeb
+ServeurWeb <|-- ServeurWebProxy
+IServeurWeb <|-- Client
 
 @enduml

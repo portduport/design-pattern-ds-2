@@ -1,0 +1,7 @@
+@startuml Proxy Sequence
+Client -> ServeurWebProxy: Requete Http
+ServeurWebProxy --> ServeurWeb: Requete Http, si la url n'est pas '/evilurl'
+Client <-- ServeurWebProxy: Reponse = 403, si la url est '/evilurl'
+Client <-- ServeurWeb: Reponse = 200, si la url n'est pas 'null'
+Client <-- ServeurWeb: Reponse = 500, si la url est 'null'
+@enduml
