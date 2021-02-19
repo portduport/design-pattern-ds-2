@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,18 +28,76 @@ public class ClientTest {
     }
 
     @Test
-    public void testClient() {
-        //
-        // Dessin dessin = new Dessin();
-        // dessin.ajouter(new Rond());
-        // dessin.ajouter(new Carre());
-        // dessin.dessiner();
-        //
+    public void ServerTestOk() {
+        HashMap<String, String> header = new HashMap<String, String>();
+        header.put("header", "true");
+        RequeteHttp requete = new RequeteHttp();
+        requete.add(new Url("/home"));
+        requete.add(new Header(header));
+        requete.add(new Body("hello"));
+        IServeurWeb sw = new ServeurWebProxy(null);
+        System.out.println(sw.repondre(requete));
+
         StringWriter out = new StringWriter();
         PrintWriter writer = new PrintWriter(out);
-        writer.println("Rond dessiné");
-        writer.println("Carré dessiné");
-        writer.println("Dessin dessiné");
+        writer.println(200);
+
+        //
+        assertEquals(out.toString(), outContent.toString());
+    }
+
+    @Test
+    public void ServerTestKO() {
+        HashMap<String, String> header = new HashMap<String, String>();
+        header.put("header", "true");
+        RequeteHttp requete = new RequeteHttp();
+        requete.add(new Url(null));
+        requete.add(new Header(header));
+        requete.add(new Body("hello"));
+        IServeurWeb sw = new ServeurWebProxy(null);
+        System.out.println(sw.repondre(requete));
+
+        StringWriter out = new StringWriter();
+        PrintWriter writer = new PrintWriter(out);
+        writer.println(500);
+
+        //
+        assertEquals(out.toString(), outContent.toString());
+    }
+
+    @Test
+    public void ServerTestEvil() {
+        HashMap<String, String> header = new HashMap<String, String>();
+        header.put("header", "true");
+        RequeteHttp requete = new RequeteHttp();
+        requete.add(new Url("/evilurl"));
+        requete.add(new Header(header));
+        requete.add(new Body("hello"));
+        IServeurWeb sw = new ServeurWebProxy(null);
+        System.out.println(sw.repondre(requete));
+
+        StringWriter out = new StringWriter();
+        PrintWriter writer = new PrintWriter(out);
+        writer.println(403);
+
+        //
+        assertEquals(out.toString(), outContent.toString());
+    }
+
+    @Test
+    public void RequetteHttpPrint() {
+        HashMap<String, String> header = new HashMap<String, String>();
+        header.put("header", "true");
+        RequeteHttp requete = new RequeteHttp();
+        requete.add(new Url("/home"));
+        requete.add(new Header(header));
+        requete.add(new Body("hello"));
+        System.out.println(requete.afficher());
+
+        StringWriter out = new StringWriter();
+        PrintWriter writer = new PrintWriter(out);
+        writer.println("/home {header: true} hello ");
+
         //
         assertEquals(out.toString(), outContent.toString());
     }

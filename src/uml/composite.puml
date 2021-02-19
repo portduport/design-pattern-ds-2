@@ -1,0 +1,31 @@
+@startuml Composite
+interface ComposantRequeteHttp {
+     + afficher() : String   
+}
+class RequeteHttp{
+    - children : ComposantRequeteHttp
+    + add(ComposantRequeteHttp)
+    + remove(ComposantRequeteHttp)
+    + getComposant(int) : ComposantRequeteHttp
+    + afficher() : String
+}
+class Url{
+    - path : String
+    + afficher() : String
+}
+class Header{
+    - header : HashMap
+    + convertWithIteration
+    + afficher() : String
+}
+class Body{
+    - content : String
+    + afficher() : String
+}
+
+RequeteHttp "1" *-- "many" ComposantRequeteHttp
+ComposantRequeteHttp <|-- RequeteHttp
+ComposantRequeteHttp <|-- Url
+ComposantRequeteHttp <|-- Header
+ComposantRequeteHttp <|-- Body
+@enduml

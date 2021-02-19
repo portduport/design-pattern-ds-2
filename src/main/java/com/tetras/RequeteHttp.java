@@ -1,47 +1,36 @@
 package com.tetras;
 
-public class RequeteHttp {
-    private Url path;
-    private Header header;
-    private Body content;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
-    public RequeteHttp(Url path, Header header, Body content) {
-        this.path = path;
-        this.header = header;
-        this.content = content;
+public class RequeteHttp implements ComposantRequeteHttp {
+
+    private List<ComposantRequeteHttp> children;
+
+    public RequeteHttp() {
+        this.children = new ArrayList<ComposantRequeteHttp>();
     }
 
-    public Url getPath() {
-        return path;
+    public void add(ComposantRequeteHttp composant) {
+        children.add(composant);
     }
 
-    public void setPath(Url path) {
-        this.path = path;
+    public void remove(ComposantRequeteHttp composant) {
+        children.remove(composant);
     }
 
-    public Header getHeader() {
-        return header;
-    }
-
-    public void setHeader(Header header) {
-        this.header = header;
-    }
-
-    public Body getContent() {
-        return content;
-    }
-
-    public void setContent(Body content) {
-        this.content = content;
+    public ComposantRequeteHttp getComposant(int id) {
+        return (ComposantRequeteHttp) children.get(id);
     }
 
     @Override
-    public String toString() {
-        return "RequeteHttp{" + "path=" + path + ", header=" + header + ", content=" + content + '}';
-    }
-
     public String afficher() {
-        return "RequeteHttp{" + "path=" + path.afficher() + ", header=" + header.afficher() + ", content="
-                + content.afficher() + '}';
+        String result = "";
+        Iterator<ComposantRequeteHttp> iterator = children.iterator();
+        while (iterator.hasNext()) {
+            result = result + iterator.next().afficher() + " ";
+        }
+        return result;
     }
 }

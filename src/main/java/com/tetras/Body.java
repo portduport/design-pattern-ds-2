@@ -1,11 +1,16 @@
 package com.tetras;
 
-public class Body {
+public class Body implements ComposantRequeteHttp {
 
     private String content;
 
     public Body(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String afficher() {
+        return this.content;
     }
 
     public String getContent() {
@@ -14,9 +19,5 @@ public class Body {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String afficher() {
-        return this.getContent();
     }
 }

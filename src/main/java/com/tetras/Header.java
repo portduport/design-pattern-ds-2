@@ -2,19 +2,11 @@ package com.tetras;
 
 import java.util.HashMap;
 
-public class Header {
+public class Header implements ComposantRequeteHttp {
 
     private HashMap<String, String> header = new HashMap<String, String>();
 
     public Header(HashMap<String, String> header) {
-        this.header = header;
-    }
-
-    public HashMap<String, String> getHeader() {
-        return header;
-    }
-
-    public void setHeader(HashMap<String, String> header) {
         this.header = header;
     }
 
@@ -27,7 +19,16 @@ public class Header {
         return mapAsString.toString();
     }
 
+    @Override
     public String afficher() {
-        return this.convertWithIteration(getHeader());
+        return this.convertWithIteration(this.header);
+    }
+
+    public HashMap<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(HashMap<String, String> header) {
+        this.header = header;
     }
 }
