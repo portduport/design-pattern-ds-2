@@ -1,0 +1,10 @@
+@startuml Proxy
+interface IServeurWeb {
+     + repondre() :void   
+}
+class ServeurWeb
+class ServeurWebProxy{
+    - sw : ServeurWeb
+}
+
+@enduml
